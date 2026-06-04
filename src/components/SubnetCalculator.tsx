@@ -1,26 +1,36 @@
-import { useState, useCallback } from 'react';
-import { calculateSubnet, validateIp, SubnetInfo } from '../lib/subnet';
-import BinaryVisualizer from './BinaryVisualizer';
-import AddressSpaceMap from './AddressSpaceMap';
-import SubnetSplitter from './SubnetSplitter';
-import SubnetStepExplainer from './SubnetStepExplainer';
-import CidrReference from './CidrReference';
-import { Network, GitBranch, Binary, BookOpen, ChevronDown, ChevronUp, Layers, ExternalLink, MessageCircle } from 'lucide-react';
+import { useState, useCallback } from "react";
+import { calculateSubnet, validateIp, SubnetInfo } from "../lib/subnet";
+import BinaryVisualizer from "./BinaryVisualizer";
+import AddressSpaceMap from "./AddressSpaceMap";
+import SubnetSplitter from "./SubnetSplitter";
+import SubnetStepExplainer from "./SubnetStepExplainer";
+import CidrReference from "./CidrReference";
+import {
+  Network,
+  GitBranch,
+  Binary,
+  BookOpen,
+  ChevronDown,
+  ChevronUp,
+  Layers,
+  ExternalLink,
+  MessageCircle,
+} from "lucide-react";
 
 export default function SubnetCalculator() {
-  const [ip, setIp] = useState('192.168.1.0');
+  const [ip, setIp] = useState("192.168.1.0");
   const [cidr, setCidr] = useState(24);
   const [result, setResult] = useState<SubnetInfo | null>(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [showRef, setShowRef] = useState(false);
 
   const handleCalculate = useCallback(() => {
     if (!validateIp(ip)) {
-      setError('Invalid IP address. Use format: x.x.x.x (0-255)');
+      setError("Invalid IP address. Use format: x.x.x.x (0-255)");
       setResult(null);
       return;
     }
-    setError('');
+    setError("");
     setResult(calculateSubnet(ip, cidr));
   }, [ip, cidr]);
 
@@ -31,7 +41,7 @@ export default function SubnetCalculator() {
         setResult(calculateSubnet(ip, c));
       }
     },
-    [ip]
+    [ip],
   );
 
   return (
@@ -44,8 +54,12 @@ export default function SubnetCalculator() {
               <Network className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold tracking-tight leading-none">Elaja</h1>
-              <p className="text-[10px] text-slate-500 tracking-wide">IP Subnetting Simulator</p>
+              <h1 className="text-lg font-bold tracking-tight leading-none">
+                Elaja
+              </h1>
+              <p className="text-[10px] text-slate-500 tracking-wide">
+                IP Subnetting Simulator
+              </p>
             </div>
           </div>
         </div>
@@ -55,10 +69,16 @@ export default function SubnetCalculator() {
         <div className="rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-cyan-950/40 p-5 shadow-xl shadow-cyan-950/20">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">About Me</p>
-              <h2 className="text-xl font-semibold text-white">Dedicated computer scientist</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">
+                About Me
+              </p>
+              <h2 className="text-xl font-semibold text-white">
+                Dedicated computer scientist
+              </h2>
               <p className="max-w-2xl text-sm leading-6 text-slate-300">
-                I build practical networking tools and I am open to work on new projects.
+                I build practical software across networking, web and app
+                development, cybersecurity, and other computer science projects.
+                I am open to work on new projects.
               </p>
             </div>
 
@@ -89,12 +109,14 @@ export default function SubnetCalculator() {
                 value={ip}
                 onChange={(e) => {
                   setIp(e.target.value);
-                  setError('');
+                  setError("");
                 }}
-                onKeyDown={(e) => e.key === 'Enter' && handleCalculate()}
+                onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
                 placeholder="e.g. 192.168.1.0"
                 className={`w-full px-4 py-2.5 bg-slate-800 border rounded-lg text-white font-mono text-sm focus:outline-none focus:ring-2 transition-all ${
-                  error ? 'border-red-500/50 focus:ring-red-500/30' : 'border-slate-700 focus:ring-teal-500/30 focus:border-teal-500/50'
+                  error
+                    ? "border-red-500/50 focus:ring-red-500/30"
+                    : "border-slate-700 focus:ring-teal-500/30 focus:border-teal-500/50"
                 }`}
               />
               {error && <p className="text-xs text-red-400 mt-1">{error}</p>}
@@ -102,7 +124,8 @@ export default function SubnetCalculator() {
 
             <div className="flex-1 min-w-0">
               <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">
-                CIDR Prefix Length: <span className="text-teal-400 font-mono">/{cidr}</span>
+                CIDR Prefix Length:{" "}
+                <span className="text-teal-400 font-mono">/{cidr}</span>
               </label>
               <div className="flex items-center gap-3">
                 <input
@@ -118,7 +141,9 @@ export default function SubnetCalculator() {
                   min={0}
                   max={32}
                   value={cidr}
-                  onChange={(e) => setCidr(Math.min(32, Math.max(0, Number(e.target.value))))}
+                  onChange={(e) =>
+                    setCidr(Math.min(32, Math.max(0, Number(e.target.value))))
+                  }
                   className="w-16 px-2 py-1.5 bg-slate-800 border border-slate-700 rounded-md text-center font-mono text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30"
                 />
               </div>
@@ -154,22 +179,37 @@ export default function SubnetCalculator() {
 
                   <div className="grid grid-cols-2 gap-x-6 gap-y-3">
                     {[
-                      { label: 'Network', value: `${result.networkAddress}/${result.cidr}`, highlight: true },
-                      { label: 'Subnet Mask', value: result.subnetMask },
-                      { label: 'Broadcast', value: result.broadcastAddress },
-                      { label: 'Wildcard', value: result.wildcardMask },
-                      { label: 'First Host', value: result.firstHost },
-                      { label: 'Last Host', value: result.lastHost },
-                      { label: 'Total Addresses', value: result.totalHosts.toLocaleString() },
-                      { label: 'Usable Hosts', value: result.usableHosts.toLocaleString(), color: 'text-emerald-400' },
-                      { label: 'IP Class', value: result.ipClass },
-                      { label: 'CIDR', value: `/${result.cidr}` },
+                      {
+                        label: "Network",
+                        value: `${result.networkAddress}/${result.cidr}`,
+                        highlight: true,
+                      },
+                      { label: "Subnet Mask", value: result.subnetMask },
+                      { label: "Broadcast", value: result.broadcastAddress },
+                      { label: "Wildcard", value: result.wildcardMask },
+                      { label: "First Host", value: result.firstHost },
+                      { label: "Last Host", value: result.lastHost },
+                      {
+                        label: "Total Addresses",
+                        value: result.totalHosts.toLocaleString(),
+                      },
+                      {
+                        label: "Usable Hosts",
+                        value: result.usableHosts.toLocaleString(),
+                        color: "text-emerald-400",
+                      },
+                      { label: "IP Class", value: result.ipClass },
+                      { label: "CIDR", value: `/${result.cidr}` },
                     ].map(({ label, value, highlight, color }) => (
                       <div key={label} className="space-y-0.5">
-                        <dt className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">{label}</dt>
+                        <dt className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
+                          {label}
+                        </dt>
                         <dd
                           className={`font-mono text-sm ${
-                            highlight ? 'text-teal-400 font-bold text-base' : color || 'text-slate-200'
+                            highlight
+                              ? "text-teal-400 font-bold text-base"
+                              : color || "text-slate-200"
                           }`}
                         >
                           {value}
@@ -189,11 +229,18 @@ export default function SubnetCalculator() {
                       <BookOpen className="w-4 h-4 text-teal-500" />
                       CIDR Reference
                     </span>
-                    {showRef ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    {showRef ? (
+                      <ChevronUp className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
+                    )}
                   </button>
                   {showRef && (
                     <div className="mt-4">
-                      <CidrReference selectedCidr={result.cidr} onSelectCidr={handleCidrFromRef} />
+                      <CidrReference
+                        selectedCidr={result.cidr}
+                        onSelectCidr={handleCidrFromRef}
+                      />
                     </div>
                   )}
                 </section>
@@ -224,7 +271,10 @@ export default function SubnetCalculator() {
 
                 {/* Subnet Splitter */}
                 <section className="bg-slate-900/60 rounded-xl border border-slate-800 p-5">
-                  <SubnetSplitter networkAddress={result.networkAddress} cidr={result.cidr} />
+                  <SubnetSplitter
+                    networkAddress={result.networkAddress}
+                    cidr={result.cidr}
+                  />
                 </section>
               </div>
             </div>
@@ -237,9 +287,12 @@ export default function SubnetCalculator() {
             <div className="w-20 h-20 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center mb-6">
               <Binary className="w-10 h-10 text-slate-600" />
             </div>
-            <h2 className="text-xl font-semibold text-slate-400 mb-2">Enter an IP and CIDR to begin</h2>
+            <h2 className="text-xl font-semibold text-slate-400 mb-2">
+              Enter an IP and CIDR to begin
+            </h2>
             <p className="text-sm text-slate-600 max-w-md">
-              Visualize binary representations, step-by-step calculations, address space maps, and interactively split subnets.
+              Visualize binary representations, step-by-step calculations,
+              address space maps, and interactively split subnets.
             </p>
           </div>
         )}
