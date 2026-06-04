@@ -5,7 +5,7 @@ import AddressSpaceMap from './AddressSpaceMap';
 import SubnetSplitter from './SubnetSplitter';
 import SubnetStepExplainer from './SubnetStepExplainer';
 import CidrReference from './CidrReference';
-import { Network, GitBranch, Binary, BookOpen, ChevronDown, ChevronUp, Layers } from 'lucide-react';
+import { Network, GitBranch, Binary, BookOpen, ChevronDown, ChevronUp, Layers, ExternalLink, MessageCircle } from 'lucide-react';
 
 export default function SubnetCalculator() {
   const [ip, setIp] = useState('192.168.1.0');
@@ -50,6 +50,31 @@ export default function SubnetCalculator() {
           </div>
         </div>
       </header>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-6">
+        <div className="rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-cyan-950/40 p-5 shadow-xl shadow-cyan-950/20">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">About Me</p>
+              <h2 className="text-xl font-semibold text-white">Dedicated computer scientist</h2>
+              <p className="max-w-2xl text-sm leading-6 text-slate-300">
+                I build practical networking tools and I am open to work on new projects.
+              </p>
+            </div>
+
+            <a
+              href="https://t.me/ElajaUnlocks"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-200 transition-colors hover:bg-cyan-400/15 hover:text-cyan-100"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Telegram Channel
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         {/* Input Section */}
@@ -224,6 +249,14 @@ export default function SubnetCalculator() {
       <footer className="border-t border-slate-800 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between text-xs text-slate-600">
           <span>Elaja - IP Subnetting Simulator</span>
+          <a
+            href="https://t.me/ElajaUnlocks"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-slate-400 transition-colors"
+          >
+            t.me/ElajaUnlocks
+          </a>
           <span>Built with React + Tailwind</span>
         </div>
       </footer>
