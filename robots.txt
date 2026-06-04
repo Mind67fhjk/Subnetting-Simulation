@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Replace the URL below with your production domain
-Sitemap: https://your-domain.com/sitemap.xml
+# Sitemap points to production site
+Sitemap: https://subnetting-simulation.vercel.app/sitemap.xml
